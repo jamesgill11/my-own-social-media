@@ -25,6 +25,9 @@ function PostForm(props) {
 
       values.body = "";
     },
+    onError(err) {
+      return err;
+    },
   });
   function createPostCallback() {
     createPost();

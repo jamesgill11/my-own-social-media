@@ -32,7 +32,7 @@ module.exports = gql`
   input RegisterInput {
     username: String!
     password: String!
-    comfirmPassword: String!
+    confirmPassword: String!
     email: String!
   }
   type Query {
