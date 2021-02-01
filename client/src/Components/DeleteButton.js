@@ -6,17 +6,18 @@ import { FETCH_POSTS_QUERY } from "../utils/graphql";
 function DeleteButton({ postId, commentsId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
-    update(proxy, result) {
+    update(proxy) {
       setConfirmOpen(false);
       if (!commentsId) {
         const data = proxy.readQuery({
           query: FETCH_POSTS_QUERY,
         });
-        let newData = [...data.getPosts];
-        newData = newData.filter((post) => post.id !== postId);
+        let newData = data.getPosts.filter((p) => p.id !== postId);
         proxy.writeQuery({
           query: FETCH_POSTS_QUERY,
-          data,
+          data: {
+            getPosts: [...newData],
+          },
         });
       }
       if (callback) callback();
